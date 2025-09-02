@@ -23,35 +23,21 @@ app.post('/api/send-message', (req, res) => {
   const { jwt, shopId, message } = req.body;
 
   const settings = {
-    url: "https://seller.shopee.tw/webchat/api/v1.2/mini/messages?_uid=0-1599470932&_v=8.8.9&csrf_token=9d3m6G1qEfCwYYYb%2FdP%2BNw%3D%3D&SPC_CDS_CHAT=1b1b9b1d-ba58-4bc6-abe6-22912d90cdef&x-shop-region=TW&_api_source=pcmall&uuid=d23ffd9c-2b05-4909-b5aa-e3da160be2ac",
+    url: "https://seller.shopee.tw/webchat/api/v1.2/mini/messages",
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       "Authorization": `Bearer ${jwt}`
     },
     data: {
-      request_id: "2a971fab-bf4b-4ba9-a8d1-16bcba8d26c4",
-      to_id: 4821226,
+      request_id: "0d5bb9c6-cae7-4444-afc2-a4ccd86d14f7",
+      to_id: 16099576,
       type: "text",
       content: {
         text: message,
-        uid: "2c212b95-d914-4363-bfbc-f54644eb2d12"
+        uid: "44f5f80d-5395-49b6-bcd4-6bdab0dd1b3a"
       },
-      shop_id: parseInt(shopId, 10),
-      chat_send_option: {
-        force_send_cancel_order_warning: false,
-        comply_cancel_order_warning: false
-      },
-      entry_point: "shop_entry_point",
-      choice_info: {
-        real_shop_id: null
-      },
-      biz_id: 0,
-      conversation_id: "20707008012724472",
-      source: "pc_mall",
-      re_policy: {
-        dfp_access_f: "5Un8m7tLR8a0Xi0j6u5i1A==|OBe0/Ugp3kyz1cql/6Iu9ppBovhJWQh1JfZAwE7ZD5YRqFyTPT7b5e9ZNg/SsX8j28bpwcruTSuIuEY=|ElbnbzrenKt1dQyv|08|3"
-      }
+      shop_id: parseInt(shopId, 10)
     }
   };
 
