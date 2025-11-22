@@ -20,7 +20,7 @@ app.get('/', (req, res) => {
 
 // Add a route to handle Shopee API requests
 app.post('/api/send-message', (req, res) => {
-  const { jwt, shopId, toId, message } = req.body;
+  const { jwt, shopId, message } = req.body;
 
   const settings = {
     url: "https://seller.shopee.tw/webchat/api/v1.2/mini/messages",
@@ -31,13 +31,12 @@ app.post('/api/send-message', (req, res) => {
     },
     data: {
       request_id: "796db710-d0c4-45e2-8876-7c08e7e6d9c5",
-      to_id: parseInt(toId, 10),
+      to_id: parseInt(shopId, 10),
       type: "text",
       content: {
         text: message,
         uid: "84b495ed-375f-484e-9b28-823779f5e162"
-      },
-      shop_id: parseInt(shopId, 10)
+      }
     }
   };
 
