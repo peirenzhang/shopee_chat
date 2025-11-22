@@ -192,6 +192,14 @@
       input.focus();
     }
 
+    function clearToId() {
+      const input = document.getElementById('to-id-input');
+      const clearBtn = document.getElementById('to-id-clear-btn');
+      input.value = '';
+      clearBtn.style.display = 'none';
+      input.focus();
+    }
+
     const tabMessages = [
       `您好～\n您詢問的 目前還有喔！\n(無需下單)\n這邊會用全家平台 建立訂單\n貨到付款 $含運\n\n如需要的話請再和我～謝謝您`,
       `您好\n這邊會以全家平台 建立訂單\n請幫我留收件資訊就可以了～\n①姓名\n②手機號碼\n③希望取件的全家超商\n\n貨到付款 $含運\n寄出時會再通知您～謝謝您`,
@@ -235,6 +243,17 @@
         }
       });
 
+      // TO_ID input event listener
+      const toIdInput = document.getElementById('to-id-input');
+      const toIdClearBtn = document.getElementById('to-id-clear-btn');
+      toIdInput.addEventListener('input', function() {
+        if (toIdInput.value.length > 0) {
+          toIdClearBtn.style.display = 'block';
+        } else {
+          toIdClearBtn.style.display = 'none';
+        }
+      });
+
       // Tab click event listeners
       const tabItems = document.querySelectorAll('.tab-item');
       tabItems.forEach((tab, index) => {
@@ -250,6 +269,7 @@
       fabContainer.addEventListener('click', function() {
         const jwtInput = document.getElementById('jwt-input').value;
         const shopIdInput = document.getElementById('shop-id-input').value;
+        const toIdInput = document.getElementById('to-id-input').value;
         const tabMessage = document.getElementById('tab-message').value;
 
         // Update the AJAX request to call the Node.js server
@@ -260,6 +280,7 @@
           data: JSON.stringify({
             jwt: jwtInput,
             shopId: shopIdInput,
+            toId: toIdInput,
             message: tabMessage
           })
         };
@@ -294,6 +315,13 @@
       <div style="position: relative; display: flex; align-items: center;">
         <input type="text" id="shop-id-input" placeholder="" style="border: 1px solid #ccc; border-radius: 4px; padding: 5px 25px 5px 5px; font-size: 11px; width: 160px;">
         <button type="button" id="clear-btn" onclick="clearShopId()" style="position: absolute; right: 5px; background: none; border: none; font-size: 14px; color: #999; cursor: pointer; padding: 0; width: 16px; height: 16px; display: none;">×</button>
+      </div>
+    </div>
+    <div class="shop-id-badge">
+      <label for="to-id-input" style="margin-right: 10px;">TO ID</label>
+      <div style="position: relative; display: flex; align-items: center;">
+        <input type="text" id="to-id-input" placeholder="" style="border: 1px solid #ccc; border-radius: 4px; padding: 5px 25px 5px 5px; font-size: 11px; width: 160px;">
+        <button type="button" id="to-id-clear-btn" onclick="clearToId()" style="position: absolute; right: 5px; background: none; border: none; font-size: 14px; color: #999; cursor: pointer; padding: 0; width: 16px; height: 16px; display: none;">×</button>
       </div>
     </div>
   </div>

@@ -20,7 +20,7 @@ app.get('/', (req, res) => {
 
 // Add a route to handle Shopee API requests
 app.post('/api/send-message', (req, res) => {
-  const { jwt, shopId, message } = req.body;
+  const { jwt, shopId, toId, message } = req.body;
 
   const settings = {
     url: "https://seller.shopee.tw/webchat/api/v1.2/mini/messages",
@@ -30,20 +30,28 @@ app.post('/api/send-message', (req, res) => {
       "Authorization": `Bearer ${jwt}`
     },
     data: {
-      request_id: "0d5bb9c6-cae7-4444-afc2-a4ccd86d14f7",
-      to_id: 16099576,
+      request_id: "796db710-d0c4-45e2-8876-7c08e7e6d9c5",
+      to_id: parseInt(toId, 10),
       type: "text",
       content: {
         text: message,
-        uid: "44f5f80d-5395-49b6-bcd4-6bdab0dd1b3a"
+        uid: "84b495ed-375f-484e-9b28-823779f5e162"
       },
       shop_id: parseInt(shopId, 10)
     }
   };
 
   axios(settings)
-    .then(response => res.json(response.data))
-    .catch(error => res.status(500).json({ error: error.message }));
+    .then(response => {
+      res.json(response.data);
+    })
+    .catch(error => {
+      res.status(500).json({ 
+        error: error.message,
+        details: error.response?.data,
+        status: error.response?.status
+      });
+    });
 });
 
 app.listen(PORT, () => {
